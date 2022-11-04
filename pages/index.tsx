@@ -8,11 +8,11 @@ const Home = () => {
   
   const socketInitializer = async () => {
     await fetch('/api/socket');
-    socket = io('/api/socket')
+    socket = io()
 
     
     socket.on('connect', () => {
-      console.log('connected')
+      console.log('hand')
     })
 
     socket.on('update-input', msg => {
