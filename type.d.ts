@@ -2,10 +2,14 @@ export interface applicationInterface {
     name: string;
     isReady:boolean;
     players:player[];
-    // rooms: roomInformation[],
+    rooms: roomInformation[],
     selectedRoom: roomInformation,
     gameStart:boolean,
     host:boolean
+}
+
+export interface modalInformationInterface {
+    roomSelectVisible: boolean;
 }
 
 export interface roomInformation {

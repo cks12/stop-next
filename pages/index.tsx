@@ -8,17 +8,24 @@ import { changeIsReady, setName, SocketClient } from '../redux/app/actions';
 import { useSelector } from 'react-redux';
 import HostOptions from '../components/HostOptions';
 import OkayAndCancelBtn from '../components/inputs/extra/okayAndCancelBtn';
+import RoomModal from '../components/modals/roomModal';
+import { selectRoomVisible } from '../redux/app/modalsActions';
 
 const Home = () => {
+
   const application = useSelector(
     (state:RootState) => state.application
   );
+
+  const modals = useSelector(
+    (state:RootState) => state.modals
+  );
+
   const dispatch:AppDispatch = useDispatch<any>();
   const [] = useState(() => {
 
   })
   useMemo(() => {
-    console.log('tess');
     dispatch(SocketClient())
   },[]);
 
@@ -42,7 +49,9 @@ const Home = () => {
         </DefaultInput>
         </div>
         <div className="btnGroup-row">
-          <button className={`btn ${!application.isReady?'bg-cyan-400 hover:bg-cyan-100 onHover':'bg-gray-400/40 text-gray-800'}`}>
+          <button 
+          onClick={() => application.isReady?dispatch(selectRoomVisible()):null}
+          className={`btn ${!application.isReady?'bg-cyan-400 hover:bg-cyan-100 onHover':'bg-gray-400/40 text-gray-800'}`}>
             {application.selectedRoom.name}
           </button>
           <button className="d-flex-row text-2xl border-b-2 border-gray-800 rounded-xl p-2 text-white">
@@ -55,6 +64,13 @@ const Home = () => {
     {
       application.host &&
       <HostOptions application={application} dispatch={dispatch}/>
+    }
+
+    {/* Modals */}
+    {modals.roomSelectVisible &&
+
+      <RoomModal/>
+
     }
     </>
   )

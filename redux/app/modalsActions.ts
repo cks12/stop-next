@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction,  } from '@reduxjs/toolkit';
-import { applicationInterface, player, roomInformation } from '../../type';
-import SocketClientClass from '../../utils/socket-client';
+import { modalInformationInterface, player, roomInformation } from '../../type';
 import { RootState } from './store';
 
-const initialState = {
+const initialState: modalInformationInterface = {
+    roomSelectVisible: false,
+}
 
+function selectRoomVisibleFunc(state:modalInformationInterface , action: PayloadAction<undefined>){
+    state.roomSelectVisible = (!state.roomSelectVisible);
 }
 
 const reducers = {
-
+    selectRoomVisible:selectRoomVisibleFunc
 }
 
 export const ModalsSlice = createSlice({
@@ -19,6 +22,6 @@ export const ModalsSlice = createSlice({
 
 export const state = (state: RootState) => state.application;
 
-export const {  } = ModalsSlice.actions
+export const { selectRoomVisible } = ModalsSlice.actions
 
 export default ModalsSlice.reducer

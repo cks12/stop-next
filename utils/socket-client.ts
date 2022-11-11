@@ -1,20 +1,19 @@
 import io, { Socket } from 'socket.io-client'
-import { setName } from '../redux/app/actions';
-import { AppDispatch } from '../redux/app/store';
 import { applicationInterface, player } from '../type';
 
 class SocketClient {
     socket:Socket;
+    connected: boolean;
     // state:applicationInterface;
     constructor () {
         const socket = io();
+        this.connected = false;
         // this.state = state;
         socket.on("connect",() => this.connect());
         socket.on("playerList",(data) => this.listenUsers(data));
         socket.on("hello",data=> console.log(data));
         socket.on('ping',(ping)=> console.log("ping:", ping))
         this.socket = socket;
-        console.log(this);
     }
     private connect() {
         console.log("connect");
@@ -25,7 +24,6 @@ class SocketClient {
     }
 
     public setName(name: string){
-        console.log(name)
         this.socket.emit("changeNamePlayer", name);
     }
 }

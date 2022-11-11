@@ -17,6 +17,7 @@ const initialState:applicationInterface = {
     host:true,
     isReady:false,
     players:[],
+    rooms:[selectedRoom],
     selectedRoom:selectedRoom,
     gameStart:false,
 
@@ -31,7 +32,6 @@ function changeIsReadyFunc(state: applicationInterface, action: PayloadAction<un
     const { isReady,name } = state;
     if(!name)
         return;
-    console.log("name",name)
     state.isReady = (!isReady);
 }
 
@@ -43,6 +43,10 @@ function startGameFunc(state:applicationInterface, action: PayloadAction<undefin
 
 function addPlayerFunc(state:applicationInterface, action: PayloadAction<player>){
     state.players.push(action.payload);
+}
+
+function selectRoomFunc(state: applicationInterface, action: PayloadAction<roomInformation>){
+    state.selectedRoom = action.payload;
 }
 
 function SocketClientFunc(state: applicationInterface, action: PayloadAction<undefined>){
@@ -60,6 +64,7 @@ const reducers = {
     startGame: startGameFunc,
     addPlayer: addPlayerFunc,
     SocketClient: SocketClientFunc,
+    selectRoom: selectRoomFunc,
 }
 
 export const ApplicationSlice = createSlice({
@@ -70,6 +75,6 @@ export const ApplicationSlice = createSlice({
 
 export const state = (state: RootState) => state.application;
 
-export const { changeIsReady, setName, startGame, addPlayer, SocketClient } = ApplicationSlice.actions
+export const { changeIsReady, setName, startGame, addPlayer, SocketClient, selectRoom } = ApplicationSlice.actions
 
 export default ApplicationSlice.reducer

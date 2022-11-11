@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import actions from './actions';
-import { ModalsSlice } from './modalsActions';
+import modals from './modalsActions';
 
 const store = configureStore({
     reducer:{
+        modals: modals,
         application: actions,
-        modals: ModalsSlice,
     }
 });
 
