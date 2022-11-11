@@ -50,7 +50,7 @@ const Home = () => {
         </div>
         <div className="btnGroup-row">
           <button 
-          onClick={() => application.isReady?dispatch(selectRoomVisible()):null}
+          onClick={() => !application.isReady?dispatch(selectRoomVisible()):null}
           className={`btn ${!application.isReady?'bg-cyan-400 hover:bg-cyan-100 onHover':'bg-gray-400/40 text-gray-800'}`}>
             {application.selectedRoom.name}
           </button>
