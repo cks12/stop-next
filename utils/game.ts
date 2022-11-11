@@ -1,32 +1,38 @@
+import { roomInformation } from "../type";
 import Player from "./players";
-import gameSocket from "./socket";
+import Room from "./room";
 
-class Game extends Player{
+class Game{
     // types
     public inGaming: Boolean;
-    players: Player[]
-
+    players: Player[];
+    rooms: Room[];
+    config: {
+        limit:number;
+    }
     constructor(){
-        super();
         this.inGaming = false;
-        this.players = []
+        this.players = [];
+        this.rooms=[];
+        this.config = {
+            limit: 8
+        }
     }
 
+    createRoom(name?: string){
+        const room = new Room(name?name:"Room 01", this.config.limit);
+        this.rooms.push(room);
+    }
+    
     addPlayer(name: string){
         const player = new Player();
-        player.create(name)
+        player.changeName(name)
         this.players.push(player);
-    }
-    removePlayer(name: string){
-        const player = this.getPlayer(name);
-        if(player)
-            this.players.splice(this.players.indexOf(player), 1);
-        return;
+        return player;
     }
 
-    getPlayer(name: string) {
-        return this.players.find(player => 
-            player.getName() === name);
+    removePlayer(player: Player) {
+        this.players.splice(this.players.indexOf(player), 1);
     }
 }
 
