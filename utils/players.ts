@@ -1,22 +1,19 @@
 class Player {    
     private name: string;
     private score: number;
+    private atributes: any;
     
     constructor() {
     this.name = "";
     this.score = 0;
     }
 
-    create(name: string) {
+    changeName(name: string) {
         this.name = name;
     }
 
     setScore(score: number) {
         this.score = score;
-    }
-
-    getName(){
-        return this.name;
     }
 
     getScore(){
