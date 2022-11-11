@@ -1,41 +1,59 @@
 import { Server, Socket } from 'socket.io';
 import Game from './game';
+import Player from './players';
+import Room from './room';
 
-class gameSocket extends Game {
+
+class gameSocket extends Game  {
 
     // Types
     private io?: Server;
     private Socket?: Socket;
+    private roomLimit = 8;
 
     constructor(){
         super();
         this.io = undefined;
-        this.Socket = undefined;
+        this.Socket;
     }
 
    public MakeConnection(config:any): Server {
         this.io = new Server(config);
-        this.io.on('connection', this.setSocket);
+        this.io.on('connection', (s) => this.socketFunction(s));
         this.io.on('disconnect', this.onPlayerDisconnect);
-        this.onPlayerConnection();
         return this.io;
    }
 
-   private onPlayerConnection(): void{
+   private checkLimitRoom(){
+        return this.roomLimit < this.players.length;
+   }
+
+   private onPlayerConnection(Socket: Socket): void{
+       if(this.checkLimitRoom()){
+           Socket.emit("limit", true);
+           return;
+       } 
+       const player = this.addPlayer("");
        console.log("> new connection");
-       this.Socket?.emit("connect")
-       this.Socket?.on("new-player", this.addPlayer);
-       this.Socket?.on("disconnect",this.onPlayerDisconnect);
+       Socket.on("changeNamePlayer", (data: any) => 
+                this.changeNamePlayer(data, player));
+       Socket.emit("playerList",{players: this.players});
+       Socket.broadcast.emit("playerList",{players: this.players})
+       Socket.on("disconnect",(data) => this.onPlayerDisconnect(data, player));
        return;
     }
 
-    private onPlayerDisconnect(data:any){
-        console.log(data);
+    private changeNamePlayer(data: string, player: Player): void {
+        player.changeName(data);
+    }
+    
+    private onPlayerDisconnect(data:any, player: Player){
+        this.removePlayer(player);
     }
 
-    private setSocket(Socket:Socket): void {
-        this.Socket = Socket;
-        return;
+    private socketFunction(_Socket:Socket): void {
+        this.Socket = _Socket;
+        this.onPlayerConnection(_Socket);
    }
 
 }
