@@ -1,26 +1,77 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;700&display=swap');
 
 * {
-  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@layer {
+  :root,.root,#root,#docs-root{
+    --primary-color: #0ADCF9;
   }
-  body {
-    color: white;
-    background: black;
+
+  .gradient {
+    @apply bg-gradient-to-t from-purple-500 to-indigo-900;
+  }
+
+  .onActive {
+    @apply focus:border-b-8 focus:border-b-cyan-900 transition-all !important
+  }
+
+  .onHover {
+    @apply hover:border-b-4 hover:border-b-cyan-900 transition-all !important
+  }
+
+  .d-flex-col {
+    @apply flex items-center justify-center flex-col;
+  }
+  .d-flex-row {
+    @apply flex items-center justify-center;
+  }
+
+  html,body {
+    @apply w-[100vw] h-[100vh] overflow-x-hidden;
+    @apply d-flex-col;
+    @apply gradient;
+    @apply relative;
+  }
+
+  .btn {
+    @apply py-3 px-4 shadow-[#000] shadow-sm !important;
+    @apply text-2xl font-semibold !important;
+    line-height: 26px !important; 
+    @apply rounded-full;
+  }
+
+  #__next {
+    @apply p-5 max-w-lg;
+    @apply d-flex-col;
+  }
+
+  .DefaultInput {
+    @apply d-flex-col py-3;
+  }
+
+  .Logo {
+    @apply mb-20; 
+  }
+
+  .DefaultInput > label {
+    @apply text-[color:white] font-bold text-2xl text-center; 
+  }
+
+  .DefaultInput input{
+    @apply rounded-full !important;
+    @apply px-5 py-4 mt-2 md:py-5 md:px-6 !important;
+    @apply mt-5 mb-4 !important;
+    @apply w-full !important;
+    @apply shadow-[#000] shadow-md  outline-none !important;
+    @apply font-bold text-xl capitalize !important;
+  }
+  .btnGroup-row {
+    @apply d-flex-row justify-around
   }
 }
