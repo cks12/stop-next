@@ -37,6 +37,23 @@ const defaultGameFields = [
 ]
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(()=> {
+    socket = io() 
+    if(!socket) {
+      fetch('/api/socket');
+    }
+    socket.on('connect', () => {
+      console.log('connected')
+    });
+    return () => {
+      if (socket) {
+        socket.disconnect();
+        socket = undefined;
+      }
+    };
+  },[]);
+
+
   const [ApplicationState, setApplicationState] = useState<ApplicationStateProps>({
     limit:'0',
     players:'0',
@@ -73,7 +90,7 @@ export default function App({ Component, pageProps }: AppProps) {
     if(!socket) return;
     socket.emit('onStartGame');
   }
-
+  3000
   function finish_player(fields:any){
     if(!socket) return;
     socket.emit('OnPlayerFinished', fields);
@@ -106,18 +123,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }));
   }
 
-  useEffect(()=> {
-    socket = io();
-    console.log("Conectado ao servidor");
-
-    return () => {
-      if (socket) {
-        socket.disconnect();
-        socket = undefined;
-      }
-    };
-  }, []);
-
   useEffect(() => {
 
     if (!socket) {
@@ -149,8 +154,6 @@ export default function App({ Component, pageProps }: AppProps) {
     useGameFields
   }
 
-  if(!socket)
-    return <h2>SOCKET ERROR</h2>
   return <>
   <Layout>
     <Component {...pageProps} />
