@@ -51,11 +51,12 @@ const columns = React.useMemo(
     <div className="overflow-x-auto">
       <table {...getTableProps()} className="w-full table-auto">
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+          {headerGroups.map((headerGroup, index) => (
+            <tr{...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column) => (
                 <th
-                  {...column.getHeaderProps()}
+                {...column.getHeaderProps()}
+                  key={index}  
                   className="px-4 py-2 text-white text-left sm:text-center"
                 >
                   {column.render('Header')}
@@ -65,14 +66,15 @@ const columns = React.useMemo(
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {rows.map((row,index) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
+              <tr {...row.getRowProps()} key={index}>
+                {row.cells.map((cell,index) => (
                   <td
                     {...cell.getCellProps()}
                     className="border bg-white px-4 py-2 sm:text-center"
+                    key={index}
                   >
                     {cell.render('Cell')}
                   </td>

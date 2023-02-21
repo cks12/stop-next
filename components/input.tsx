@@ -1,12 +1,13 @@
 import React from 'react';
 import { InputHTMLAttributes } from 'react';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  children?: HTMLInputElement;
-}
+// interface Props extends InputHTMLAttributes<HTMLInputElement> {
+//   className?: string;
+//   children?: HTMLInputElement;
+// }
 
-const Input: React.FC<Props> = ({ className, children, ...rest }) => {
+
+const Input: React.FC<any> = ({ className, children, ...rest }) => {
   return (
     <div>
     {children}

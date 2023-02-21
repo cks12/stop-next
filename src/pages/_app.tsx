@@ -149,7 +149,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Component {...pageProps} />
   </Layout>
   {
-    useMsg.map(msg => <Popup message={msg}/>)
+    useMsg.map((msg,index) => <Popup message={msg} key={index}/>)
   }
 
   </>

@@ -1,5 +1,5 @@
 import countDown from './countDown.json';
 
-const animations = {};
+// const animations = {};
 
-animations.count_down = countDown
+// animations.count_down = countDown

@@ -23,7 +23,7 @@ const Game = ({Application}: ApplicationProps) => {
             </div>
             <form onSubmit={onSubmit} className="flex flex-col items-center" action="#">
                 {
-                    gameFields.map((item: any, index) => 
+                    gameFields.map((item: any, index:number) => 
                         <Card key={index} index={index} setGameFields={setGameFields} config={item}/>)
                 }
             <Button className="bg-[#56ED0F] flex items-center mb-5">

@@ -38,6 +38,7 @@ class Game {
     }
 
     public start_game(){
+        this.player_finished = []
         if (this.Players.length <= 1)
             return {err:"not_enough_players"};
         const _notStartedPlayer = this.Players.filter(p => p.isReady === false);
