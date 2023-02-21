@@ -119,7 +119,12 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    if (!socket) return;
+
+    if (!socket) {
+      fetch('/socket');
+      return
+    };
+
     socket.on('alert',(msg)=> alert(msg));
     socket.on("player_finshed", finished_player)
     socket.on("start_game",(letter: string) => start_game(letter));
@@ -144,6 +149,8 @@ export default function App({ Component, pageProps }: AppProps) {
     useGameFields
   }
 
+  if(!socket)
+    return <h2>SOCKET ERROR</h2>
   return <>
   <Layout>
     <Component {...pageProps} />
