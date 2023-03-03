@@ -5,8 +5,8 @@
 /* FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,300;1,700&display=swap');
  *{
-    @apply overflow-x-hidden
+    /* @apply overflow-x-hidden */
  }
  #__next {
-  @apply bg-gradient-to-b pt-10 relative from-[#4200FF] to-[#1b0275aa]  w-screen min-h-screen overflow-y-auto overflow-x-hidden;
+  @apply bg-gradient-to-b pt-10 relative from-[#4200FF] to-[#1b0275aa]  w-screen min-h-screen overflow-y-auto overflow-x-auto md:overflow-x-hidden;
  }

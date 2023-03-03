@@ -52,6 +52,7 @@ export interface Application {
   changePlayerName: (string: ChangeEvent<HTMLInputElement>) => void,
   changeReady: () => void,
   useGameFields:any;
+  playerName:string;
 }
 
 export interface ApplicationProps {

@@ -7,7 +7,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import io,{ Socket } from "socket.io-client";
 import { ApplicationStateProps, playerFinished } from 'types';
 
-let socket: Socket | undefined;
+let socket: Socket | undefined = undefined;
 
 const defaultGameFields = [
   {
@@ -38,13 +38,14 @@ const defaultGameFields = [
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(()=> {
-    socket = io() 
-    if(!socket) {
-      fetch('/api/socket');
-    }
+    socket = io();
+    if(socket.active){
+      fetch("/api/socket");
+    } 
     socket.on('connect', () => {
       console.log('connected')
     });
+
     return () => {
       if (socket) {
         socket.disconnect();
@@ -63,14 +64,16 @@ export default function App({ Component, pageProps }: AppProps) {
     game:undefined,
     msg:""
   });
+  const [playerName, setPlayerName] = useState('');
   const useGameFields = useState(defaultGameFields);
   const [useMsg, setUseMsg] = useState<string[]>([]);
 
 
   function changePlayerName(e: ChangeEvent<HTMLInputElement>):void{
     const _name = e.target.value;
+    setPlayerName(_name);
+    if(!socket?.active) return;
     setApplicationState((prev:any) => ({...prev, player:{...prev.player, name:_name}}))
-    if(!socket) return;
     socket.emit('onChangeName', _name);
   }
 
@@ -151,6 +154,7 @@ export default function App({ Component, pageProps }: AppProps) {
     changeReady,
     finish_player,
     owner_start_game,
+    playerName,
     useGameFields
   }
 

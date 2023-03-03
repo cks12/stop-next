@@ -16,7 +16,7 @@ const PlayersPage: React.FC<ApplicationProps> = ({Application}) => {
     }
   return (
     <div className="px-2 w-screen flex justify-center flex-col items-center">
-      <div className="md:max-w-xl bg-[rgba(0,0,0,0.1)] shadow-lg px-2 md:px-10 py-2 max-w-2xl rounded-[20px]">
+      <div className="md:max-w-xl bg-[rgba(0,0,0,0.1)] shadow-lg px-2 md:px-10 py-2 max-w-2xl w-[99%] rounded-[20px]">
 
       <h1 className="text-white font-title text-xl text-center font-bold">Respostas</h1>
       {

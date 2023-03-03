@@ -30,7 +30,7 @@ export default function Home({Application}: ApplicationProps) {
           <Input 
             disabled={ApplicationState.player?.isReady} 
             onChange={changePlayerName} 
-            value={ApplicationState.player?.name || ''} 
+            value={Application.playerName} 
             className={inputStyle} 
             id={'Name'} 
             placeholder='José'>

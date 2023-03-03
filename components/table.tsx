@@ -48,7 +48,7 @@ const columns = React.useMemo(
   });
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-scroll">
       <table {...getTableProps()} className="w-full table-auto">
         <thead>
           {headerGroups.map((headerGroup, index) => (
